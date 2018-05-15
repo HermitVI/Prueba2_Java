@@ -1,36 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-/**
- *
- * @author lastorga
- */
 public class Vivienda {
     private int rol;
     private String direccion;
-    private int cant_pieza;
-    private int cant_banios;
-    private int tipo_vivienda_fk;
+    private int cant_Pieza;
+    private int cant_Banio;
+    private String tipo_vivienda_fk;
     private boolean tipo;
     private int precio;
     private boolean estado;
 
-    public Vivienda() {
-    }
-
-    public Vivienda(int rol, String direccion, int cant_pieza, int cant_banios, int tipo_vivienda_fk, boolean tipo, int precio, boolean estado) {
+    public Vivienda(int rol, String direccion, int cant_Pieza, int cant_Baño, 
+            String tipo_vivienda_fk, boolean tipo, int precio, boolean estado) {
         this.rol = rol;
         this.direccion = direccion;
-        this.cant_pieza = cant_pieza;
-        this.cant_banios = cant_banios;
+        this.cant_Pieza = cant_Pieza;
+        this.cant_Banio = cant_Baño;
         this.tipo_vivienda_fk = tipo_vivienda_fk;
         this.tipo = tipo;
         this.precio = precio;
         this.estado = estado;
+    }
+
+    
+    public Vivienda() {
     }
 
     public int getRol() {
@@ -49,27 +42,27 @@ public class Vivienda {
         this.direccion = direccion;
     }
 
-    public int getCant_pieza() {
-        return cant_pieza;
+    public int getCant_Pieza() {
+        return cant_Pieza;
     }
 
-    public void setCant_pieza(int cant_pieza) {
-        this.cant_pieza = cant_pieza;
+    public void setCant_Pieza(int cant_Pieza) {
+        this.cant_Pieza = cant_Pieza;
     }
 
-    public int getCant_banios() {
-        return cant_banios;
+    public int getCant_Baño() {
+        return cant_Banio;
     }
 
-    public void setCant_banios(int cant_banios) {
-        this.cant_banios = cant_banios;
+    public void setCant_Baño(int cant_Baño) {
+        this.cant_Banio = cant_Baño;
     }
 
-    public int getTipo_vivienda_fk() {
+    public String getTipo_vivienda_fk() {
         return tipo_vivienda_fk;
     }
 
-    public void setTipo_vivienda_fk(int tipo_vivienda_fk) {
+    public void setTipo_vivienda_fk(String tipo_vivienda_fk) {
         this.tipo_vivienda_fk = tipo_vivienda_fk;
     }
 
@@ -99,7 +92,12 @@ public class Vivienda {
 
     @Override
     public String toString() {
-        return "Vivienda{" + "rol=" + rol + ", direccion=" + direccion + ", cant_pieza=" + cant_pieza + ", cant_banios=" + cant_banios + ", tipo_vivienda_fk=" + tipo_vivienda_fk + ", tipo=" + tipo + ", precio=" + precio + ", estado=" + estado + '}';
+        return "Vivienda{" + "rol=" + rol + ", direccion=" + direccion + 
+                ", cant_Pieza=" + cant_Pieza + ", cant_Baño=" + cant_Banio +
+                ", tipo_vivienda_fk=" + tipo_vivienda_fk + ", tipo=" + tipo +
+                ", precio=" + precio + ", estado=" + estado + '}';
     }
+
+    
     
 }

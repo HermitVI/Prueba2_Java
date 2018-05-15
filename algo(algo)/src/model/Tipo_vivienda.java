@@ -1,16 +1,15 @@
 package model;
 
-
 public class Tipo_vivienda {
     private int id;
     private String estado;
 
-    public Tipo_vivienda() {
-    }
-
     public Tipo_vivienda(int id, String estado) {
         this.id = id;
         this.estado = estado;
+    }
+
+    public Tipo_vivienda() {
     }
 
     public int getId() {
@@ -31,7 +30,9 @@ public class Tipo_vivienda {
 
     @Override
     public String toString() {
-        return "Tipo_vivienda{" + "id=" + id + ", estado=" + estado + '}';
+        return "TipoVivienda{" + "id=" + id + ", estado=" + estado + '}';
     }
+
     
 }
+

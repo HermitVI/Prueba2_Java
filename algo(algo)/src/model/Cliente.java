@@ -1,20 +1,21 @@
 package model;
 
+import java.sql.Date;
 
 public class Cliente {
     private String run;
     private String nombre;
     private int sueldo;
-    private date fecha_reg;
+    private Date fecha;
 
-    public Cliente() {
-    }
-
-    public Cliente(String run, String nombre, int sueldo, date fecha_reg) {
+    public Cliente(String run, String nombre, int sueldo, Date fecha) {
         this.run = run;
         this.nombre = nombre;
         this.sueldo = sueldo;
-        this.fecha_reg = fecha_reg;
+        this.fecha = fecha;
+    }
+
+    public Cliente() {
     }
 
     public String getRun() {
@@ -41,17 +42,20 @@ public class Cliente {
         this.sueldo = sueldo;
     }
 
-    public date getFecha_reg() {
-        return fecha_reg;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setFecha_reg(date fecha_reg) {
-        this.fecha_reg = fecha_reg;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     @Override
     public String toString() {
-        return "Cliente{" + "run=" + run + ", nombre=" + nombre + ", sueldo=" + sueldo + ", fecha_reg=" + fecha_reg + '}';
+        return "Cliente{" + "run=" + run + ", nombre=" + nombre + 
+                ", sueldo=" + sueldo + ", fecha=" + fecha + '}';
     }
+    
+    
     
 }

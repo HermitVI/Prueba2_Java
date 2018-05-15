@@ -1,14 +1,13 @@
 package model;
 
-
-public class Tipo_usuario {
+public class TipoUsuario {
     private int id;
     private String nombre;
 
-    public Tipo_usuario() {
+    public TipoUsuario() {
     }
 
-    public Tipo_usuario(int id, String nombre) {
+    public TipoUsuario(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
@@ -33,5 +32,4 @@ public class Tipo_usuario {
     public String toString() {
         return "Tipo_usuario{" + "id=" + id + ", nombre=" + nombre + '}';
     }
-    
 }

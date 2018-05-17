@@ -11,36 +11,37 @@ public class Data {
     private String query;
     private ResultSet rs;
     //private List<Ciudad> listaCiudades;
-    //private List<Cliente> listaClientes;
+    private List<Cliente> listaClientes;
 
     public Data() throws ClassNotFoundException, SQLException {
         con = new Conexion("localhost", "bd_Prueba2", "root", "");
     }
 
-    //CRUD CIUDAD
-//    public void createCiudad(Ciudad nueva) throws SQLException {
-//        query = "INSERT INTO ciudad VALUES(NULL, '" + nueva.getNombre() + "');";
-//        con.ejecutar(query);
-//    }
-//    
-//    public List<Ciudad> readCiudades() throws SQLException {
-//        query = "SELECT * FROM ciudad ORDER BY nombre ASC";
-//        rs = con.ejecutarSelect(query);
-//        listaCiudades = new ArrayList<>();
-//
-//        Ciudad c;
-//        while (rs.next()) { //existe algun otro registro?
-//            c = new Ciudad();
-//
-//            c.setId(rs.getInt(1));
-//            c.setNombre(rs.getString(2));
-//
-//            listaCiudades.add(c);
-//        }
-//        con.close();
-//        return listaCiudades;
-//    }
-//
+//    CRUD CIUDAD
+    public void createCliente(Cliente nueva) throws SQLException {
+        query = "INSERT INTO cliente VALUES('"+ nueva.getRun()+"','" + nueva.getNombre() + "','"+ nueva.getSueldo()+");";
+        con.ejecutar(query);
+    }
+    
+    public List<Cliente> readCliente() throws SQLException {
+        query = "SELECT * FROM cliente ORDER BY nombre ASC";
+        rs = con.ejecutarSelect(query);
+        listaClientes = new ArrayList<>();
+
+        Cliente c;
+        while (rs.next()) { //existe algun otro registro?
+            c = new Cliente();
+
+            c.setRun(rs.getString(1));
+            c.setNombre(rs.getString(2));
+            c.setSueldo(rs.getInt(3));
+
+            listaClientes.add(c);
+        }
+        con.close();
+        return listaClientes;
+    }
+
 //    public void updateCiudad(Ciudad mod) throws SQLException {
 //        query = "UPDATE ciudad SET nombre = '" + mod.getNombre() + "' WHERE id = " + mod.getId();
 //        con.ejecutar(query);
@@ -51,7 +52,7 @@ public class Data {
 //        con.ejecutar(query);
 //    }
 //
-//    //buscar por nombre
+//    buscar por nombre
 //    public List<Ciudad> searchCiudad(String exp) throws SQLException {
 //        query = "SELECT * FROM ciudad WHERE nombre LIKE '%" + exp + "%' ";
 //        rs = con.ejecutarSelect(query);
@@ -72,7 +73,7 @@ public class Data {
 //
 //    }
 //
-//    //buscar por id
+//    buscar por id
 //    public Ciudad getCiudadBy(int id) throws SQLException {
 //        query = "select * from ciudad where id = " + id;
 //        rs = con.ejecutarSelect(query);
@@ -84,16 +85,16 @@ public class Data {
 //            c.setId(rs.getInt(1));
 //            c.setNombre(rs.getString(2));
 //
-//            // listaCiudad.add(c);
+//             listaCiudad.add(c);
 //        }
 //        con.close();
 //        return c;
 //
 //    }
-//    //CRUD CIUDAD
+//    CRUD CIUDAD
 //
 //    /*-----------------------------------------------------*/
-//    //CRUD CLIENTE
+//    CRUD CLIENTE
 //    public void createCliente(Cliente nuevo) throws SQLException {
 //        query = "INSERT INTO cliente VALUES(NULL, '" + nuevo.getNombre() + "', '" + nuevo.getCiudad() + "', 0 );";
 //        con.ejecutar(query);
@@ -130,7 +131,7 @@ public class Data {
 //        con.ejecutar(query);
 //    }
 //
-//    //buscar por nombre
+//    buscar por nombre
 //    public List<Cliente> searchCliente(String exp) throws SQLException {
 //        query = "SELECT * FROM cliente WHERE nombre LIKE '%" + exp + "%' ";
 //        rs = con.ejecutarSelect(query);
@@ -153,7 +154,7 @@ public class Data {
 //
 //    }
 //
-//    //buscar por id
+//    buscar por id
 //    public Cliente getClienteBy(int id) throws SQLException {
 //        query = "select * from ciudad where id = " + id;
 //        rs = con.ejecutarSelect(query);
@@ -184,7 +185,7 @@ public class Data {
 //                "INNER JOIN" +
 //                "    ciudad ciu ON cli.ciudad = ciu.id;";
 //        
-//        // vista --> youtube --> mysql
+//         vista --> youtube --> mysql
 //        rs = con.ejecutarSelect(query);
 //        
 //        ClienteSelect cs;
@@ -219,34 +220,34 @@ public class Data {
 //    
 //        return prom;
 //    }
-    
-    
-    /*Suposición*/
-    /*Ver listado de ventas por rango de fechas*/
-    
+//    
+//    
+//    /*Suposición*/
+//    /*Ver listado de ventas por rango de fechas*/
+//    
 //    public List<Venta> getVentas(String fechaIni, String fechaFinal){
 //        query = "SELECT * FROM venta WHERE fecha BETWEEN '"+fechaIni+"' AND '"+fechaFinal+"'";
 //    }
-    
-    
-    
-    /*Suposición*/
-    
-    
-    
+//    
+//    
+//    
+//    /*Suposición*/
+//    
+//    
+//    
 //    public static void main(String[] args) throws ClassNotFoundException, SQLException {
 //        Data d = new Data();
 //        
 //        System.out.println(d.getPromedioSueldos());
 //        
-//        //#somosnada
-////        for (ClienteSelect cs : d.getClientes()) {
-////            System.out.println("--------------------");
-////            System.out.println(cs.getId());
-////            System.out.println(cs.getNombre());
-////            System.out.println(cs.getCiudadString());
-////            System.out.println("$"+cs.getSueldo());
-////        }
+//        #somosnada
+//        for (ClienteSelect cs : d.getClientes()) {
+//            System.out.println("--------------------");
+//            System.out.println(cs.getId());
+//            System.out.println(cs.getNombre());
+//            System.out.println(cs.getCiudadString());
+//            System.out.println("$"+cs.getSueldo());
+//        }
 //    }
-    
+//    
 }

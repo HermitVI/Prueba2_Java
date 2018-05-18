@@ -12,6 +12,7 @@ public class Data {
     private ResultSet rs;
     //private List<Ciudad> listaCiudades;
     private List<Cliente> listaClientes;
+    private List<TipoUsuario> listaUsers;
 
     public Data() throws ClassNotFoundException, SQLException {
         con = new Conexion("localhost", "bd_Prueba2", "root", "");
@@ -42,6 +43,26 @@ public class Data {
         return listaClientes;
     }
 
+    
+     public List<TipoUsuario> readUsuario() throws SQLException{
+        query = "SELECT * FROM TipoUsuario";
+        rs = con.ejecutarSelect(query);
+        listaUsers= new ArrayList<>();
+        
+        TipoUsuario u;
+        while(rs.next()){
+            u = new TipoUsuario();
+            
+            u.setId(rs.getInt(1));
+            u.setNombre(rs.getString(2));
+
+            listaUsers.add(u);
+        }
+        
+        con.close();
+        return listaUsers;
+        
+    }
 //    public void updateCiudad(Ciudad mod) throws SQLException {
 //        query = "UPDATE ciudad SET nombre = '" + mod.getNombre() + "' WHERE id = " + mod.getId();
 //        con.ejecutar(query);

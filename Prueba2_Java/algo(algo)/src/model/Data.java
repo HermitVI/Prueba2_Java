@@ -13,12 +13,12 @@ public class Data {
     //private List<Ciudad> listaCiudades;
     private List<Cliente> listaClientes;
     private List<TipoUsuario> listaUsers;
+    private List<Tipo_vivienda> listaVivienda;
 
     public Data() throws ClassNotFoundException, SQLException {
         con = new Conexion("localhost", "bd_Prueba2", "root", "");
     }
 
-//    CRUD CIUDAD
     public void createCliente(Cliente nueva) throws SQLException {
         query = "INSERT INTO cliente VALUES('"+ nueva.getRun()+"','" + nueva.getNombre() + "','"+ nueva.getSueldo()+");";
         con.ejecutar(query);
@@ -44,7 +44,7 @@ public class Data {
     }
 
     
-     public List<TipoUsuario> readUsuario() throws SQLException{
+    public List<TipoUsuario> readUsuario() throws SQLException{
         query = "SELECT * FROM TipoUsuario";
         rs = con.ejecutarSelect(query);
         listaUsers= new ArrayList<>();
@@ -61,8 +61,26 @@ public class Data {
         
         con.close();
         return listaUsers;
-        
     }
+    public List<Tipo_vivienda> readVivienda() throws SQLException{
+        query = "SELECT * FROM Tipo_vivienda";
+        rs = con.ejecutarSelect(query);
+        listaVivienda= new ArrayList<>();
+        
+        Tipo_vivienda v;
+        while(rs.next()){
+            v = new Tipo_vivienda();
+            
+            v.setId(rs.getInt(1));
+            v.setEstado(rs.getString(2));
+
+            listaVivienda.add(v);
+        }
+        
+        con.close();
+        return listaVivienda;
+    }
+}
 //    public void updateCiudad(Ciudad mod) throws SQLException {
 //        query = "UPDATE ciudad SET nombre = '" + mod.getNombre() + "' WHERE id = " + mod.getId();
 //        con.ejecutar(query);
@@ -271,4 +289,4 @@ public class Data {
 //        }
 //    }
 //    
-}
+

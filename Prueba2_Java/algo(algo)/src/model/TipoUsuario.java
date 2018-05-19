@@ -30,6 +30,6 @@ public class TipoUsuario {
 
     @Override
     public String toString() {
-        return "Tipo_usuario{" + "id=" + id + ", nombre=" + nombre + '}';
+        return nombre;
     }
 }

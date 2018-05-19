@@ -5,12 +5,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Data {
+public class Data{
 
     private final Conexion con;
     private String query;
     private ResultSet rs;
-    //private List<Ciudad> listaCiudades;
     private List<Cliente> listaClientes;
     private List<TipoUsuario> listaUsers;
     private List<Tipo_vivienda> listaVivienda;
@@ -45,7 +44,7 @@ public class Data {
 
     
     public List<TipoUsuario> readUsuario() throws SQLException{
-        query = "SELECT * FROM TipoUsuario";
+        query = "SELECT * FROM tipo_usuario";
         rs = con.ejecutarSelect(query);
         listaUsers= new ArrayList<>();
         
@@ -80,6 +79,23 @@ public class Data {
         con.close();
         return listaVivienda;
     }
+    public Usuario getCiudadBy(int rut) throws SQLException {
+        query = "select * from usuario where rut = " + rut;
+        rs = con.ejecutarSelect(query);
+
+        Usuario u = null;
+        if (rs.next()) { //existe algun otro registro?
+            u = new Usuario();
+
+            u.setRun(rs.getString(1));
+
+        }
+        con.close();
+        return u;
+
+    }
+    
+    
 }
 //    public void updateCiudad(Ciudad mod) throws SQLException {
 //        query = "UPDATE ciudad SET nombre = '" + mod.getNombre() + "' WHERE id = " + mod.getId();

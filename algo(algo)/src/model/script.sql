@@ -7,8 +7,8 @@ CREATE TABLE tipo_usuario(
     PRIMARY KEY(id)
 );
 
--- INSERT INTO tipo_usuario VALUE(null, 'Administrador');
--- INSERT INTO tipo_usuario VALUE(null, 'Vendedor');
+INSERT INTO tipo_usuario VALUE(null, 'Administrador');
+INSERT INTO tipo_usuario VALUE(null, 'Vendedor');
 
 CREATE TABLE usuario(
 	run VARCHAR(50) UNIQUE,

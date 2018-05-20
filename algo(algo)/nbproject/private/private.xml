@@ -4,8 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Raul/Downloads/Prueba2_Java-master/algo(algo)/src/model/Data.java</file>
+            <file>file:/C:/Users/Raul/Downloads/Prueba2_Java-master/algo(algo)/src/model/script.sql</file>
             <file>file:/C:/Users/Raul/Downloads/Prueba2_Java-master/algo(algo)/src/gui/inicioSesion.java</file>
             <file>file:/C:/Users/Raul/Downloads/Prueba2_Java-master/algo(algo)/src/model/TipoUsuario.java</file>
+            <file>file:/C:/Users/Raul/Downloads/Prueba2_Java-master/algo(algo)/src/model/Conexion.java</file>
         </group>
     </open-files>
 </project-private>

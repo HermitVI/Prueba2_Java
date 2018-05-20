@@ -4,12 +4,11 @@ public class TipoUsuario {
     private int id;
     private String nombre;
 
-    public TipoUsuario() {
-    }
-
-    public TipoUsuario(int id, String nombre) {
-        this.id = id;
+    public TipoUsuario(String nombre) {
         this.nombre = nombre;
+    }
+    
+    public TipoUsuario() {
     }
 
     public int getId() {
@@ -30,6 +29,6 @@ public class TipoUsuario {
 
     @Override
     public String toString() {
-        return "Tipo_usuario{" + "id=" + id + ", nombre=" + nombre + '}';
+        return nombre;
     }
 }

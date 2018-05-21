@@ -2,7 +2,7 @@ CREATE DATABASE bd_Prueba2; -- DROP DATABASE bd_Prueba2;
 USE  bd_Prueba2;
 
 CREATE TABLE tipo_usuario(
-	id INT AUTO_INCREMENT,
+    id INT AUTO_INCREMENT,
     nombre VARCHAR(100),
     PRIMARY KEY(id)
 );
@@ -11,7 +11,7 @@ CREATE TABLE tipo_usuario(
 -- INSERT INTO tipo_usuario VALUE(null, 'Vendedor');
 
 CREATE TABLE usuario(
-	run VARCHAR(50) UNIQUE,
+    run VARCHAR(50) UNIQUE,
     nombre VARCHAR(100),
     tipo_usuaruo_fk INT REFERENCES tipo_usuario(id),
     fecha_con TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

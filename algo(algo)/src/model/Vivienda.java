@@ -5,7 +5,7 @@ public class Vivienda {
     private String direccion;
     private int cant_Pieza;
     private int cant_Banio;
-    private boolean tipo_vivienda_fk;
+    private int tipo_vivienda_fk;
     private boolean tipo;
     private int precio;
     private boolean estado;
@@ -48,11 +48,11 @@ public class Vivienda {
         this.cant_Banio = cant_Baño;
     }
 
-    public boolean getTipo_vivienda_fk() {
+    public int getTipo_vivienda_fk() {
         return tipo_vivienda_fk;
     }
 
-    public void setTipo_vivienda_fk(boolean tipo_vivienda_fk) {
+    public void setTipo_vivienda_fk(int tipo_vivienda_fk) {
         this.tipo_vivienda_fk = tipo_vivienda_fk;
     }
 
@@ -82,10 +82,7 @@ public class Vivienda {
 
     @Override
     public String toString() {
-        return "Vivienda{" + "rol=" + rol + ", direccion=" + direccion + 
-                ", cant_Pieza=" + cant_Pieza + ", cant_Baño=" + cant_Banio +
-                ", tipo_vivienda_fk=" + tipo_vivienda_fk + ", tipo=" + tipo +
-                ", precio=" + precio + ", estado=" + estado + '}';
+        return "Rol: "+rol;
     }
 
     

@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Cliente;
 import model.Data;
 import model.TipoUsuario;
+import model.Usuario;
+import model.Venta;
 import model.Vivienda;
-
 
 /**
  *
@@ -19,12 +21,11 @@ import model.Vivienda;
  */
 public class inicioSesion extends javax.swing.JFrame {
 
-    
     private Data d;
     private List<Vivienda> vivienda;
     private List<TipoUsuario> tipoUsuario;
     private List<Cliente> cliente;
-    
+
     public inicioSesion() {
         initComponents();
         this.setResizable(false);
@@ -33,7 +34,6 @@ public class inicioSesion extends javax.swing.JFrame {
         Image i = new ImageIcon(ClassLoader.getSystemResource("images/logo.png")).getImage();
         setIconImage(i);
 
-        
         try {
             d = new Data();
         } catch (ClassNotFoundException ex) {
@@ -41,8 +41,9 @@ public class inicioSesion extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        cargarUsuario();
+
+        cargarVivienda();
+        cargarCliente();
     }
 
     /**
@@ -65,14 +66,19 @@ public class inicioSesion extends javax.swing.JFrame {
         txtClienteSueldo = new javax.swing.JTextField();
         lblRCliente = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        cboCliente = new javax.swing.JComboBox();
+        cboVivienda = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        lblRVenta = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         frameVendedor = new javax.swing.JFrame();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtVRun = new javax.swing.JTextField();
+        txtVNombre = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -104,9 +110,14 @@ public class inicioSesion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtRun = new javax.swing.JTextField();
-        cboUsuarios = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+
+        frameAdmin.setTitle("Vendedor");
+        frameAdmin.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                frameAdminWindowClosing(evt);
+            }
+        });
 
         jLabel18.setText("R.U.N:");
 
@@ -164,15 +175,50 @@ public class inicioSesion extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Cliente", jPanel5);
 
+        jLabel5.setText("Cliente:");
+
+        jLabel17.setText("Vivienda:");
+
+        lblRVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoVivienda.png"))); // NOI18N
+        lblRVenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRVentaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 311, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboVivienda, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(86, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblRVenta)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 218, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(cboVivienda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(lblRVenta)
+                .addGap(29, 29, 29))
         );
 
         jTabbedPane2.addTab("Venta", jPanel6);
@@ -207,6 +253,7 @@ public class inicioSesion extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        frameVendedor.setTitle("Administrador");
         frameVendedor.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 frameVendedorWindowClosing(evt);
@@ -235,8 +282,8 @@ public class inicioSesion extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(txtVNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                    .addComponent(txtVRun))
                 .addGap(64, 64, 64)
                 .addComponent(jLabel7)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -250,11 +297,11 @@ public class inicioSesion extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtVRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtVNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(225, Short.MAX_VALUE))
         );
 
@@ -446,21 +493,8 @@ public class inicioSesion extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
 
         txtRun.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtRun.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRunActionPerformed(evt);
-            }
-        });
-
-        cboUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboUsuariosActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Ingrese su rut: ");
-
-        jLabel5.setText("Defina su usuario");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -469,23 +503,23 @@ public class inicioSesion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtRun, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                                .addComponent(cboUsuarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel5)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(68, 68, 68)))))
-                .addContainerGap(73, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(166, 166, 166)
+                        .addComponent(jLabel1)))
+                .addContainerGap(85, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(154, 154, 154))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,85 +529,126 @@ public class inicioSesion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        frameVendedor.setBounds(500, 500, 500, 500);
-        frameVendedor.setLocationRelativeTo(null);
-        frameVendedor.setVisible(true);
-        this.setVisible(false);
+        String rut = txtRun.getText();
+        if (txtRun.getText().equals("11-1")) {
+            frameVendedor.setBounds(500, 500, 500, 500);
+            frameVendedor.setLocationRelativeTo(null);
+            frameVendedor.setVisible(true);
+            this.setVisible(false);
+        } else {
+            try {
+                for (Usuario u : d.getVendedor()) {
+                    if (rut.equals(u.getRun())) {
+                        frameAdmin.setBounds(500, 500, 500, 500);
+                        frameAdmin.setLocationRelativeTo(null);
+                        frameAdmin.setVisible(true);
+                        this.setVisible(false);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void frameVendedorWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_frameVendedorWindowClosing
         this.setVisible(true);
     }//GEN-LAST:event_frameVendedorWindowClosing
 
-    private void cboUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboUsuariosActionPerformed
-        
-    }//GEN-LAST:event_cboUsuariosActionPerformed
-
-    private void txtRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRunActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRunActionPerformed
-
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        
+        try {
+            Usuario u = new Usuario();
+
+            u.setRun(txtVRun.getText());
+            u.setNombre(txtVNombre.getText());
+
+            d.createUsuario(u);
+
+            txtVRun.setText("");
+            txtVNombre.setText("");
+        } catch (SQLException ex) {
+            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void lblRViviendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRViviendaMouseClicked
-        Vivienda v = new Vivienda();
-        
-        v.setRol(Integer.parseInt(txtNRol.getText()));
-        v.setDireccion(txtDireccion.getText());
-        v.setCant_Pieza(Integer.parseInt(txtCPiezas.getText()));
-        v.setCant_Baño(Integer.parseInt(txtCBanios.getText()));
-        
-        v.setTipo_vivienda_fk(opCasa.isSelected());
-        v.setTipo(opArriendo.isSelected());
-        
-        v.setPrecio(Integer.parseInt(txtPrecio.getText()));
-        
-        v.setEstado(opNueva.isSelected());
-        
-        vivienda.add(v);
-        
-        txtNRol.setText("");
-        txtDireccion.setText("");
-        txtCPiezas.setText("");
-        txtCBanios.setText("");
-        opCasa.setSelected(true);
-        opArriendo.setSelected(true);
-        txtPrecio.setText("");
-        opNueva.setSelected(true);
+        try {
+            Vivienda v = new Vivienda();
+
+            v.setRol(Integer.parseInt(txtNRol.getText()));
+            v.setDireccion(txtDireccion.getText());
+            v.setCant_Pieza(Integer.parseInt(txtCPiezas.getText()));
+            v.setCant_Baño(Integer.parseInt(txtCBanios.getText()));
+
+            
+            if (opCasa.isSelected()) {
+                v.setTipo_vivienda_fk(1);
+            }else{
+                v.setTipo_vivienda_fk(2);
+            }
+                
+            v.setTipo(opArriendo.isSelected());
+
+            v.setPrecio(Integer.parseInt(txtPrecio.getText()));
+
+            v.setEstado(opNueva.isSelected());
+
+            d.createVivienda(v);
+
+            txtNRol.setText("");
+            txtDireccion.setText("");
+            txtCPiezas.setText("");
+            txtCBanios.setText("");
+            opCasa.setSelected(true);
+            opArriendo.setSelected(true);
+            txtPrecio.setText("");
+            opNueva.setSelected(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_lblRViviendaMouseClicked
 
     private void lblRClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRClienteMouseClicked
-        Cliente c = new Cliente();
-        
-        c.setRun(txtClienteRUN.getText());
-        c.setNombre(txtClienteNombre.getText());
-        c.setSueldo(Integer.parseInt(txtClienteSueldo.getText()));
-        
-        cliente.add(c);
-        
-        txtClienteRUN.setText("");
-        txtClienteNombre.setText("");
-        txtClienteSueldo.setText("");
+        try {
+            Cliente c = new Cliente();
+
+            c.setRun(txtClienteRUN.getText());
+            c.setNombre(txtClienteNombre.getText());
+            c.setSueldo(Integer.parseInt(txtClienteSueldo.getText()));
+
+            d.createCliente(c);
+
+            txtClienteRUN.setText("");
+            txtClienteNombre.setText("");
+            txtClienteSueldo.setText("");
+        } catch (SQLException ex) {
+            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_lblRClienteMouseClicked
+
+    private void frameAdminWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_frameAdminWindowClosing
+        this.setVisible(true);
+    }//GEN-LAST:event_frameAdminWindowClosing
+
+    private void lblRVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRVentaMouseClicked
+//        Venta v= new Venta();
+//        v.getCliente_fk(cboCliente.getSelectedIndex())
+    }//GEN-LAST:event_lblRVentaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -609,7 +684,6 @@ public class inicioSesion extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new inicioSesion().setVisible(true);
@@ -621,7 +695,8 @@ public class inicioSesion extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.JComboBox cboUsuarios;
+    private javax.swing.JComboBox cboCliente;
+    private javax.swing.JComboBox cboVivienda;
     private javax.swing.JFrame frameAdmin;
     private javax.swing.JFrame frameVendedor;
     private javax.swing.JLabel jLabel1;
@@ -632,6 +707,7 @@ public class inicioSesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -652,9 +728,8 @@ public class inicioSesion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblRCliente;
+    private javax.swing.JLabel lblRVenta;
     private javax.swing.JLabel lblRVivienda;
     private javax.swing.JRadioButton opArriendo;
     private javax.swing.JRadioButton opCasa;
@@ -671,23 +746,33 @@ public class inicioSesion extends javax.swing.JFrame {
     private javax.swing.JTextField txtNRol;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtRun;
+    private javax.swing.JTextField txtVNombre;
+    private javax.swing.JTextField txtVRun;
     // End of variables declaration//GEN-END:variables
 
-    
-    private void cargarUsuario(){
-        
+    private void cargarVivienda(){
+        cboVivienda.removeAllItems();
         try {
-            List<TipoUsuario> listaUsers;
-            listaUsers = d.readUsuario();
+            List<Vivienda> listaVivienda = d.readVivienda();
             
-            listaUsers.forEach((TipoUsuario) -> {
-                cboUsuarios.addItem(TipoUsuario);
+            listaVivienda.forEach((Vivienda) ->{
+                cboVivienda.addItem(Vivienda);
             });
-            
         } catch (SQLException ex) {
             Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void cargarCliente(){
+        cboCliente.removeAllItems();
+        try {
+            List<Cliente> listaClientes = d.readCliente();
             
+            listaClientes.forEach((Cliente) ->{
+                cboCliente.addItem(Cliente);
+            });
+        } catch (SQLException ex) {
+            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
-

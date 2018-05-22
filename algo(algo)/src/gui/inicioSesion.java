@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import model.Cliente;
 import model.Data;
 import model.TipoUsuario;
+import model.Vivienda;
 
 
 /**
@@ -20,6 +21,9 @@ public class inicioSesion extends javax.swing.JFrame {
 
     
     private Data d;
+    private List<Vivienda> vivienda;
+    private List<TipoUsuario> tipoUsuario;
+    private List<Cliente> cliente;
     
     public inicioSesion() {
         initComponents();
@@ -29,15 +33,10 @@ public class inicioSesion extends javax.swing.JFrame {
         Image i = new ImageIcon(ClassLoader.getSystemResource("images/logo.png")).getImage();
         setIconImage(i);
 
-        try {
-            d = new Data();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        cargarUsuario();
+        
+        
+//        cargarUsuario();
     }
 
     /**
@@ -58,10 +57,8 @@ public class inicioSesion extends javax.swing.JFrame {
         txtClienteRUN = new javax.swing.JTextField();
         txtClienteNombre = new javax.swing.JTextField();
         txtClienteSueldo = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
+        lblRCliente = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         frameVendedor = new javax.swing.JFrame();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -81,17 +78,17 @@ public class inicioSesion extends javax.swing.JFrame {
         txtDireccion = new javax.swing.JTextField();
         txtCPiezas = new javax.swing.JTextField();
         txtCBanios = new javax.swing.JTextField();
-        rbnCasa = new javax.swing.JRadioButton();
-        rbnDepartamento = new javax.swing.JRadioButton();
-        rbnArriendo = new javax.swing.JRadioButton();
-        rbnVenta = new javax.swing.JRadioButton();
+        opCasa = new javax.swing.JRadioButton();
+        opDepartamento = new javax.swing.JRadioButton();
+        opArriendo = new javax.swing.JRadioButton();
+        opVenta = new javax.swing.JRadioButton();
         txtPrecio = new javax.swing.JTextField();
-        rbnNueva = new javax.swing.JRadioButton();
-        rbnUsada = new javax.swing.JRadioButton();
+        opNueva = new javax.swing.JRadioButton();
+        opUsada = new javax.swing.JRadioButton();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        lblRVivienda = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         buttonGroup1 = new javax.swing.ButtonGroup();
@@ -101,7 +98,7 @@ public class inicioSesion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtRun = new javax.swing.JTextField();
-        cboUsuarios = new javax.swing.JComboBox();
+        cboUsuarios = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -111,7 +108,12 @@ public class inicioSesion extends javax.swing.JFrame {
 
         jLabel20.setText("Sueldo:");
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon_vendedor.png"))); // NOI18N
+        lblRCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon_vendedor.png"))); // NOI18N
+        lblRCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRClienteMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -131,7 +133,7 @@ public class inicioSesion extends javax.swing.JFrame {
                 .addContainerGap(140, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel21)
+                .addComponent(lblRCliente)
                 .addGap(42, 42, 42))
         );
         jPanel5Layout.setVerticalGroup(
@@ -150,40 +152,21 @@ public class inicioSesion extends javax.swing.JFrame {
                     .addComponent(jLabel20)
                     .addComponent(txtClienteSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
-                .addComponent(jLabel21)
+                .addComponent(lblRCliente)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Cliente", jPanel5);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 311, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 218, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Venta", jPanel6);
@@ -229,6 +212,11 @@ public class inicioSesion extends javax.swing.JFrame {
         jLabel10.setText("Nombre:");
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon_vendedor.png"))); // NOI18N
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -276,26 +264,26 @@ public class inicioSesion extends javax.swing.JFrame {
 
         jLabel13.setText("Precio:");
 
-        buttonGroup1.add(rbnCasa);
-        rbnCasa.setSelected(true);
-        rbnCasa.setText("Casa");
+        buttonGroup1.add(opCasa);
+        opCasa.setSelected(true);
+        opCasa.setText("Casa");
 
-        buttonGroup1.add(rbnDepartamento);
-        rbnDepartamento.setText("Departamento");
+        buttonGroup1.add(opDepartamento);
+        opDepartamento.setText("Departamento");
 
-        buttonGroup2.add(rbnArriendo);
-        rbnArriendo.setSelected(true);
-        rbnArriendo.setText("Arriendo");
+        buttonGroup2.add(opArriendo);
+        opArriendo.setSelected(true);
+        opArriendo.setText("Arriendo");
 
-        buttonGroup2.add(rbnVenta);
-        rbnVenta.setText("Venta");
+        buttonGroup2.add(opVenta);
+        opVenta.setText("Venta");
 
-        buttonGroup3.add(rbnNueva);
-        rbnNueva.setSelected(true);
-        rbnNueva.setText("Nueva");
+        buttonGroup3.add(opNueva);
+        opNueva.setSelected(true);
+        opNueva.setText("Nueva");
 
-        buttonGroup3.add(rbnUsada);
-        rbnUsada.setText("Usada");
+        buttonGroup3.add(opUsada);
+        opUsada.setText("Usada");
 
         jLabel14.setText("Tipo:");
 
@@ -303,7 +291,12 @@ public class inicioSesion extends javax.swing.JFrame {
 
         jLabel16.setText("Estado:");
 
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoVivienda.png"))); // NOI18N
+        lblRVivienda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoVivienda.png"))); // NOI18N
+        lblRVivienda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRViviendaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -323,24 +316,24 @@ public class inicioSesion extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(rbnCasa)
+                        .addComponent(opCasa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbnDepartamento))
+                        .addComponent(opDepartamento))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(rbnArriendo)
+                        .addComponent(opArriendo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbnVenta))
+                        .addComponent(opVenta))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(rbnNueva)
+                        .addComponent(opNueva)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbnUsada))
+                        .addComponent(opUsada))
                     .addComponent(txtPrecio)
                     .addComponent(txtCBanios)
                     .addComponent(txtCPiezas)
                     .addComponent(txtDireccion)
                     .addComponent(txtNRol))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
-                .addComponent(jLabel17)
+                .addComponent(lblRVivienda)
                 .addGap(55, 55, 55))
         );
         jPanel2Layout.setVerticalGroup(
@@ -364,25 +357,25 @@ public class inicioSesion extends javax.swing.JFrame {
                     .addComponent(txtCBanios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbnCasa)
-                    .addComponent(rbnDepartamento)
+                    .addComponent(opCasa)
+                    .addComponent(opDepartamento)
                     .addComponent(jLabel14))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rbnArriendo)
-                            .addComponent(rbnVenta)
+                            .addComponent(opArriendo)
+                            .addComponent(opVenta)
                             .addComponent(jLabel15))
                         .addGap(15, 15, 15)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel17))
+                    .addComponent(lblRVivienda))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbnNueva)
-                    .addComponent(rbnUsada)
+                    .addComponent(opNueva)
+                    .addComponent(opUsada)
                     .addComponent(jLabel16))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -427,7 +420,7 @@ public class inicioSesion extends javax.swing.JFrame {
             frameVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(frameVendedorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -447,6 +440,17 @@ public class inicioSesion extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
 
         txtRun.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRunActionPerformed(evt);
+            }
+        });
+
+        cboUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboUsuariosActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Ingrese su rut: ");
 
@@ -502,8 +506,8 @@ public class inicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        frameVendedor.setBounds(500, 500, 500, 500);
         frameVendedor.setLocationRelativeTo(null);
-        frameVendedor.setExtendedState(MAXIMIZED_BOTH);
         frameVendedor.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jLabel2MouseClicked
@@ -512,12 +516,94 @@ public class inicioSesion extends javax.swing.JFrame {
         this.setVisible(true);
     }//GEN-LAST:event_frameVendedorWindowClosing
 
+    private void cboUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboUsuariosActionPerformed
+        
+    }//GEN-LAST:event_cboUsuariosActionPerformed
+
+    private void txtRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRunActionPerformed
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void lblRViviendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRViviendaMouseClicked
+        Vivienda v = new Vivienda();
+        
+        v.setRol(Integer.parseInt(txtNRol.getText()));
+        v.setDireccion(txtDireccion.getText());
+        v.setCant_Pieza(Integer.parseInt(txtCPiezas.getText()));
+        v.setCant_Baño(Integer.parseInt(txtCBanios.getText()));
+        
+        v.setTipo_vivienda_fk(opCasa.isSelected());
+        v.setTipo(opArriendo.isSelected());
+        
+        v.setPrecio(Integer.parseInt(txtPrecio.getText()));
+        
+        v.setEstado(opNueva.isSelected());
+        
+        vivienda.add(v);
+        
+        txtNRol.setText("");
+        txtDireccion.setText("");
+        txtCPiezas.setText("");
+        txtCBanios.setText("");
+        opCasa.setSelected(true);
+        opArriendo.setSelected(true);
+        txtPrecio.setText("");
+        opNueva.setSelected(true);
+    }//GEN-LAST:event_lblRViviendaMouseClicked
+
+    private void lblRClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRClienteMouseClicked
+        Cliente c = new Cliente();
+        
+        c.setRun(txtClienteRUN.getText());
+        c.setNombre(txtClienteNombre.getText());
+        c.setSueldo(Integer.parseInt(txtClienteSueldo.getText()));
+        
+        cliente.add(c);
+        
+        txtClienteRUN.setText("");
+        txtClienteNombre.setText("");
+        txtClienteSueldo.setText("");
+    }//GEN-LAST:event_lblRClienteMouseClicked
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(inicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(inicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(inicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(inicioSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
-
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new inicioSesion().setVisible(true);
@@ -529,7 +615,7 @@ public class inicioSesion extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.JComboBox cboUsuarios;
+    private javax.swing.JComboBox<String> cboUsuarios;
     private javax.swing.JFrame frameAdmin;
     private javax.swing.JFrame frameVendedor;
     private javax.swing.JLabel jLabel1;
@@ -540,12 +626,10 @@ public class inicioSesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -560,18 +644,18 @@ public class inicioSesion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JRadioButton rbnArriendo;
-    private javax.swing.JRadioButton rbnCasa;
-    private javax.swing.JRadioButton rbnDepartamento;
-    private javax.swing.JRadioButton rbnNueva;
-    private javax.swing.JRadioButton rbnUsada;
-    private javax.swing.JRadioButton rbnVenta;
+    private javax.swing.JLabel lblRCliente;
+    private javax.swing.JLabel lblRVivienda;
+    private javax.swing.JRadioButton opArriendo;
+    private javax.swing.JRadioButton opCasa;
+    private javax.swing.JRadioButton opDepartamento;
+    private javax.swing.JRadioButton opNueva;
+    private javax.swing.JRadioButton opUsada;
+    private javax.swing.JRadioButton opVenta;
     private javax.swing.JTextField txtCBanios;
     private javax.swing.JTextField txtCPiezas;
     private javax.swing.JTextField txtClienteNombre;
@@ -584,22 +668,20 @@ public class inicioSesion extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     
-    private void cargarUsuario(){
-        cboUsuarios.removeAllItems();
-        
-        try {
-            List<TipoUsuario> listaUsers = d.readUsuario();
-            
-            listaUsers.forEach((a) -> {
-                cboUsuarios.addItem(a);
-            });
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "ERROR: " + ex.getMessage());
-        }
-            
-    }
-    
-    
+//    private void cargarUsuario(){
+//        
+//        try {
+//            List<TipoUsuario> listaUsers;
+//            listaUsers = d.readUsuario();
+//            
+//            listaUsers.forEach((TipoUsuario) -> {
+//                cboUsuarios.getSelectedItem();
+//            });
+//            
+//        } catch (SQLException ex) {
+//            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//            
+//    }
 }
 

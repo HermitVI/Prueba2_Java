@@ -10,7 +10,6 @@ public class Data {
     private final Conexion con;
     private String query;
     private ResultSet rs;
-    //private List<Ciudad> listaCiudades;
     private List<Cliente> listaClientes;
     private List<TipoUsuario> listaUsers;
 
@@ -47,8 +46,7 @@ public class Data {
      public List<TipoUsuario> readUsuario() throws SQLException{
         query = "SELECT * FROM tipo_usuario ORDER BY nombre ASC";
         rs = con.ejecutarSelect(query);
-        
-        listaUsers = new ArrayList<>();
+        listaUsers= new ArrayList<>();
         
         TipoUsuario u;
         while(rs.next()){
@@ -59,7 +57,6 @@ public class Data {
 
             listaUsers.add(u);
         }
-        
         con.close();
         return listaUsers;
         

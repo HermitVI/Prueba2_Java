@@ -5,22 +5,12 @@ public class Vivienda {
     private String direccion;
     private int cant_Pieza;
     private int cant_Banio;
-    private String tipo_vivienda_fk;
+    private boolean tipo_vivienda_fk;
     private boolean tipo;
     private int precio;
     private boolean estado;
 
-    public Vivienda(int rol, String direccion, int cant_Pieza, int cant_Baño, 
-            String tipo_vivienda_fk, boolean tipo, int precio, boolean estado) {
-        this.rol = rol;
-        this.direccion = direccion;
-        this.cant_Pieza = cant_Pieza;
-        this.cant_Banio = cant_Baño;
-        this.tipo_vivienda_fk = tipo_vivienda_fk;
-        this.tipo = tipo;
-        this.precio = precio;
-        this.estado = estado;
-    }
+    
 
     
     public Vivienda() {
@@ -58,11 +48,11 @@ public class Vivienda {
         this.cant_Banio = cant_Baño;
     }
 
-    public String getTipo_vivienda_fk() {
+    public boolean getTipo_vivienda_fk() {
         return tipo_vivienda_fk;
     }
 
-    public void setTipo_vivienda_fk(String tipo_vivienda_fk) {
+    public void setTipo_vivienda_fk(boolean tipo_vivienda_fk) {
         this.tipo_vivienda_fk = tipo_vivienda_fk;
     }
 

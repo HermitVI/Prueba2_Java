@@ -47,7 +47,8 @@ public class Data {
      public List<TipoUsuario> readUsuario() throws SQLException{
         query = "SELECT * FROM tipo_usuario ORDER BY nombre ASC";
         rs = con.ejecutarSelect(query);
-        listaUsers= new ArrayList<>();
+        
+        listaUsers = new ArrayList<>();
         
         TipoUsuario u;
         while(rs.next()){

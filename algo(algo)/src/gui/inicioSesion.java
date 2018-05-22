@@ -34,9 +34,15 @@ public class inicioSesion extends javax.swing.JFrame {
         setIconImage(i);
 
         
+        try {
+            d = new Data();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        
-//        cargarUsuario();
+        cargarUsuario();
     }
 
     /**
@@ -98,7 +104,7 @@ public class inicioSesion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtRun = new javax.swing.JTextField();
-        cboUsuarios = new javax.swing.JComboBox<>();
+        cboUsuarios = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -439,7 +445,7 @@ public class inicioSesion extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
 
-        txtRun.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtRun.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtRun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRunActionPerformed(evt);
@@ -491,8 +497,8 @@ public class inicioSesion extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(txtRun, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -615,7 +621,7 @@ public class inicioSesion extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.JComboBox<String> cboUsuarios;
+    private javax.swing.JComboBox cboUsuarios;
     private javax.swing.JFrame frameAdmin;
     private javax.swing.JFrame frameVendedor;
     private javax.swing.JLabel jLabel1;
@@ -668,20 +674,20 @@ public class inicioSesion extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     
-//    private void cargarUsuario(){
-//        
-//        try {
-//            List<TipoUsuario> listaUsers;
-//            listaUsers = d.readUsuario();
-//            
-//            listaUsers.forEach((TipoUsuario) -> {
-//                cboUsuarios.getSelectedItem();
-//            });
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//            
-//    }
+    private void cargarUsuario(){
+        
+        try {
+            List<TipoUsuario> listaUsers;
+            listaUsers = d.readUsuario();
+            
+            listaUsers.forEach((TipoUsuario) -> {
+                cboUsuarios.addItem(TipoUsuario);
+            });
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(inicioSesion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }
 }
 

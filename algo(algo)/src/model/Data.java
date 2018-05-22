@@ -17,7 +17,7 @@ public class Data {
         con = new Conexion("localhost", "bd_Prueba2", "root", "");
     }
 
-//    CRUD CIUDAD
+//  CRUD CIUDAD
     public void createCliente(Cliente nueva) throws SQLException {
         query = "INSERT INTO cliente VALUES('"+ nueva.getRun()+"','" + nueva.getNombre() + "','"+ nueva.getSueldo()+");";
         con.ejecutar(query);
